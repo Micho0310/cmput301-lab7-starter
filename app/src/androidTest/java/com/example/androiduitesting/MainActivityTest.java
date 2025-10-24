@@ -7,7 +7,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.intent.Intents.init;
 import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.Intents.release;
-import static androidx.test.espresso.intent.matcher.IntentMatchers.toPackage;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -78,7 +78,7 @@ public class MainActivityTest {
         // Click on Edmonton city from listview
         onData(is(instanceOf(String.class))).inAdapterView(withId(R.id.city_list)).atPosition(0).perform(click());
         // See if Activity Changed
-        intended(toPackage("com.example.androiduitesting"));
+        intended(hasComponent(ShowActivity.class.getName()));
         release();
     }
 
@@ -104,11 +104,11 @@ public class MainActivityTest {
         // Click on Edmonton city from listview
         onData(is(instanceOf(String.class))).inAdapterView(withId(R.id.city_list)).atPosition(0).perform(click());
         // Check if activity changed
-        intended(toPackage("com.example.androiduitesting"));
+        intended(hasComponent(ShowActivity.class.getName()));
         // Click back button
         onView(withId(R.id.back)).perform(click());
         // Check if activity changed again
-        intended(toPackage("com.example.androiduitesting"));
+        onView(withId(R.id.main_layout)).check(matches(isDisplayed()));
         release();
     }
 }
